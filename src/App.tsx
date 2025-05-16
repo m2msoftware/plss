@@ -267,7 +267,9 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <Building2 className="w-12 h-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold mb-3">Seguros Generales</h3>
+                <h3 className="text-xl font-semibold mb-3">
+                  Seguros Generales
+                </h3>
                 <p className="text-gray-600">
                   Liquidación de siniestros en todas las áreas de seguros
                   generales.
@@ -291,7 +293,12 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                   Averías de Maquinaria
                 </h3>
                 <p className="text-gray-600">
-                  Peritajes y evaluación técnica de daños causados a las maquinarias y equipos industriales especializados, aplicando las respectivas técnicas para determinar los valores de reposición a nuevo, valores actuales, depreciaciones técnicas y toda otra gestión inherente a una pronta y justa indemnización.
+                  Peritajes y evaluación técnica de daños causados a las
+                  maquinarias y equipos industriales especializados, aplicando
+                  las respectivas técnicas para determinar los valores de
+                  reposición a nuevo, valores actuales, depreciaciones técnicas
+                  y toda otra gestión inherente a una pronta y justa
+                  indemnización.
                 </p>
               </div>
             </div>
@@ -303,9 +310,12 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                   Incendio y Adicionales
                 </h3>
                 <p className="text-gray-600">
-                  Especialistas en siniestros de incendios de establecimientos comerciales, habitacionales, industriales y demás.
-Experiencia acreditada en siniestros catastróficos, como sismos y riesgos de la naturaleza.
-Especialistas en liquidaciones de siniestros de perjuicios por paralización de establecimientos comerciales, industriales, empresas frutícolas, etc.
+                  Especialistas en siniestros de incendios de establecimientos
+                  comerciales, habitacionales, industriales y demás. Experiencia
+                  acreditada en siniestros catastróficos, como sismos y riesgos
+                  de la naturaleza. Especialistas en liquidaciones de siniestros
+                  de perjuicios por paralización de establecimientos
+                  comerciales, industriales, empresas frutícolas, etc.
                 </p>
               </div>
 
@@ -315,7 +325,15 @@ Especialistas en liquidaciones de siniestros de perjuicios por paralización de 
                   Robos con fuerza y violencia en las personas
                 </h3>
                 <p className="text-gray-600">
-                  Expertís en siniestros de robo con fuerza y violencia en las personas, de casa habitación, establecimientos comerciales, oficinas, edificios en construcción, y otros. Vasta experiencia en liquidaciones de robo con fuerza en establecimientos comerciales y de todo tipo de empresa, abocándonos a una investigación exhaustiva de las causas de los siniestros, como también un análisis contable para determinar cabalmente las pérdidas indemnizables de estos tipos de robos
+                  Expertís en siniestros de robo con fuerza y violencia en las
+                  personas, de casa habitación, establecimientos comerciales,
+                  oficinas, edificios en construcción, y otros. Vasta
+                  experiencia en liquidaciones de robo con fuerza en
+                  establecimientos comerciales y de todo tipo de empresa,
+                  abocándonos a una investigación exhaustiva de las causas de
+                  los siniestros, como también un análisis contable para
+                  determinar cabalmente las pérdidas indemnizables de estos
+                  tipos de robos
                 </p>
               </div>
             </div>
@@ -348,7 +366,7 @@ Especialistas en liquidaciones de siniestros de perjuicios por paralización de 
                     <Mail className="w-6 h-6 text-blue-500" />
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-gray-600">contacto@pls.cl</p>
+                      <p className="text-gray-600">contacto@plss.cl</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -356,8 +374,8 @@ Especialistas en liquidaciones de siniestros de perjuicios por paralización de 
                     <div>
                       <p className="font-medium">Dirección</p>
                       <p className="text-gray-600">
-                        Avda. Alonso de Córdoba N° 5870 of. 714, Las Condes - Santiago 
-
+                        Avda. Alonso de Córdoba N° 5870 of. 714, Las Condes -
+                        Santiago
                       </p>
                     </div>
                   </div>
