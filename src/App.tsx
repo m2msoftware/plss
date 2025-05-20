@@ -400,6 +400,13 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
+                    <Phone className="w-6 h-6 text-blue-500" />
+                    <div>
+                      <p className="font-medium">Teléfono</p>
+                      <p className="text-gray-600">229383719</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
                     <Mail className="w-6 h-6 text-blue-500" />
                     <div>
                       <p className="font-medium">Email</p>
@@ -541,6 +548,7 @@ d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               <h3 className="text-lg font-semibold mb-4">
                 Horario de Atención
               </h3>
+              <p className="text-gray-400 mb-2">Teléfono: 229383719</p>
               <p className="text-gray-400">Lunes a Viernes</p>
               <p className="text-gray-400">9:00 - 18:00</p>
             </div>
