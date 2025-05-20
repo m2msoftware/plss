@@ -26,7 +26,6 @@ function App() {
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
-    tel: "",
     msge: "",
   });
   const [loading, setLoading] = useState(false);
@@ -56,7 +55,6 @@ function App() {
         {
           from_name: formData.nombre,
           from_email: formData.email,
-          phone: formData.tel,
           message: formData.msge,
         },
         'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
@@ -66,7 +64,6 @@ function App() {
       setFormData({
         nombre: "",
         email: "",
-        tel: "",
         msge: ""
       });
     } catch (err) {
@@ -466,18 +463,6 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounde
 d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Teléfono
-                  </label>
-                  <input
-                    type="tel"
-                    name="tel"
-                    value={formData.tel}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
                 <div>
