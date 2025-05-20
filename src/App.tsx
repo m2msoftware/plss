@@ -50,14 +50,14 @@ function App() {
     
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        'service_iivtilf', // Replace with your EmailJS service ID
+        'template_lz1zn48', // Replace with your EmailJS template ID
         {
           from_name: formData.nombre,
           from_email: formData.email,
           message: formData.msge,
         },
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+        'hKbzW2ugjeCCQah_2' // Replace with your EmailJS public key
       );
       
       alert('¡Mensaje enviado correctamente! 🎉');
