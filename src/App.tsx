@@ -21,6 +21,15 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Form state
+  const [formData, setFormData] = useState({
+    nombre: "",
+    email: "",
+    tel: "",
+    msge: "",
+  });
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -29,6 +38,31 @@ function App() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error(`Status: ${res.status}`);
+      alert("Mensaje enviado correctamente 🎉");
+      setFormData({ nombre: "", email: "", tel: "", msge: "" });
+    } catch (err) {
+      console.error(err);
+      alert("Error al enviar el mensaje");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -393,13 +427,17 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
             </div>
 
             <div className="bg-white p-8 rounded-lg">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Nombre Completo
                   </label>
                   <input
                     type="text"
+                    name="nombre"
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
@@ -409,6 +447,10 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 rounde
 d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -419,6 +461,9 @@ d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   </label>
                   <input
                     type="tel"
+                    name="tel"
+                    value={formData.tel}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
@@ -428,14 +473,19 @@ d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   </label>
                   <textarea
                     rows={4}
+                    name="msge"
+                    value={formData.msge}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300"
+                  disabled={loading}
+                  className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300 disabled:opacity-50"
                 >
-                  Enviar Mensaje
+                  {loading ? "Enviando…" : "Enviar Mensaje"}
                 </button>
               </form>
             </div>
