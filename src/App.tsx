@@ -400,13 +400,6 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
-                    <Phone className="w-6 h-6 text-blue-500" />
-                    <div>
-                      <p className="font-medium">Teléfono</p>
-                      <p className="text-gray-600">+56 2 2234 5678</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
                     <Mail className="w-6 h-6 text-blue-500" />
                     <div>
                       <p className="font-medium">Email</p>
@@ -550,10 +543,6 @@ d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               </h3>
               <p className="text-gray-400">Lunes a Viernes</p>
               <p className="text-gray-400">9:00 - 18:00</p>
-              <div className="mt-4">
-                <p className="text-gray-400">Emergencias 24/7</p>
-                <p className="text-white font-semibold">+56 9 9876 5432</p>
-              </div>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
