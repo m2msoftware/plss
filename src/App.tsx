@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import emailjs from '@emailjs/browser';
 import {
   Phone,
   Mail,
@@ -47,18 +48,30 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+          from_name: formData.nombre,
+          from_email: formData.email,
+          phone: formData.tel,
+          message: formData.msge,
+        },
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
+      
+      alert('¡Mensaje enviado correctamente! 🎉');
+      setFormData({
+        nombre: "",
+        email: "",
+        tel: "",
+        msge: ""
       });
-      if (!res.ok) throw new Error(`Status: ${res.status}`);
-      alert("Mensaje enviado correctamente 🎉");
-      setFormData({ nombre: "", email: "", tel: "", msge: "" });
     } catch (err) {
       console.error(err);
-      alert("Error al enviar el mensaje");
+      alert('Error al enviar el mensaje. Por favor, inténtelo nuevamente.');
     } finally {
       setLoading(false);
     }
