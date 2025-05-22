@@ -146,16 +146,26 @@ function App() {
             <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4">
               <div className="flex flex-col space-y-4 px-4">
                 <a
-                  href="#inicio"
+                  href="#"
                   className="text-gray-800 hover:text-blue-500"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const section = document.querySelector('#inicio');
+                    section?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
                 >
                   Inicio
                 </a>
                 <a
-                  href="#nosotros"
+                  href="#"
                   className="text-gray-800 hover:text-blue-500"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const section = document.querySelector('#nosotros');
+                    section?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
                 >
                   Nosotros
                 </a>
@@ -167,16 +177,26 @@ function App() {
                   Historia
                 </a>
                 <a
-                  href="#servicios"
+                  href="#"
                   className="text-gray-800 hover:text-blue-500"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const section = document.querySelector('#servicios');
+                    section?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
                 >
                   Servicios
                 </a>
                 <a
-                  href="#contacto"
+                  href="#"
                   className="text-gray-800 hover:text-blue-500"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const section = document.querySelector('#contacto');
+                    section?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
                 >
                   Contacto
                 </a>
@@ -192,7 +212,7 @@ function App() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center mix-blend-overlay"></div>
         <div className="relative container mx-auto px-4 h-full flex items-start pt-64">
           <div className="max-w-4xl text-white">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               Experiencia en Liquidación de Siniestros
             </h1>
             <p className="text-lg md:text-xl mb-6 text-blue-100">
