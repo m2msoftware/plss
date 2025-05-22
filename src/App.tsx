@@ -232,7 +232,7 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="nosotros" className="py-20 bg-white scroll-mt-32">
+      <section id="nosotros" className="py-20 bg-white scroll-mt-48">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -322,7 +322,7 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
       </section> */}
 
       {/* Services Section */}
-      <section id="servicios" className="py-20 bg-white scroll-mt-32">
+      <section id="servicios" className="py-20 bg-white scroll-mt-48">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
             Nuestros Servicios
@@ -406,7 +406,7 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
       </section>
 
       {/* Contact Section */}
-      <section id="contacto" className="py-20 bg-gray-50 scroll-mt-32">
+      <section id="contacto" className="py-20 bg-gray-50 scroll-mt-48">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
             Contáctanos
