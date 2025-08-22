@@ -21,6 +21,7 @@ import {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isClientAccessOpen, setIsClientAccessOpen] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -39,6 +40,16 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.client-access-dropdown')) {
+        setIsClientAccessOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -130,6 +141,56 @@ function App() {
               >
                 Contacto
               </a>
+              
+              {/* Client Access Dropdown */}
+              <div className="relative client-access-dropdown">
+                <button
+                  onClick={() => setIsClientAccessOpen(!isClientAccessOpen)}
+                  className={`font-medium ${
+                    isScrolled ? "text-gray-800" : "text-white"
+                  } hover:text-blue-500 transition-colors flex items-center space-x-1`}
+                >
+                  <span>Acceso Cliente</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isClientAccessOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {isClientAccessOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border py-2 z-50">
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      Asegurado o Beneficiario
+                    </a>
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=3"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      Compañía
+                    </a>
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=6"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      Contratante
+                    </a>
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      Corredor
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -200,6 +261,49 @@ function App() {
                 >
                   Contacto
                 </a>
+                
+                {/* Mobile Client Access Links */}
+                <div className="border-t pt-4 mt-4">
+                  <p className="text-gray-600 font-medium mb-2">Acceso Cliente:</p>
+                  <div className="pl-4 space-y-2">
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-gray-700 hover:text-blue-500 text-sm"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Asegurado o Beneficiario
+                    </a>
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=3"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-gray-700 hover:text-blue-500 text-sm"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Compañía
+                    </a>
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=6"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-gray-700 hover:text-blue-500 text-sm"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Contratante
+                    </a>
+                    <a
+                      href="https://pls.sistemakronos.cl/acceso.php?dato=4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-gray-700 hover:text-blue-500 text-sm"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Corredor
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           )}
