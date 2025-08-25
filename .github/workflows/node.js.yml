@@ -40,10 +40,10 @@ jobs:
 
       # Eliminar el contenido remoto antes de subir lo nuevo
       # - name: Limpiar contenido remoto en FTP
-      #  run: |
-      #    lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; rm -r /pruebas/*; bye"
+      #   run: |
+      #     lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; rm -r /pruebas/*; bye"
 
       # Subir el contenido generado (por ejemplo, carpeta 'dist') al FTP
       - name: Subir archivos generados al FTP
         run: |
-          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; mirror -R -e ./dist/* /pruebas/; bye"
+          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; mirror -R -e ./dist /pruebas/; bye"
