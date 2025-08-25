@@ -39,9 +39,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lftp
 
       # Eliminar el contenido remoto antes de subir lo nuevo
-      - name: Limpiar contenido remoto en FTP
-        run: |
-          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; rm -r /pruebas/*; bye"
+      # - name: Limpiar contenido remoto en FTP
+      #  run: |
+      #    lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; rm -r /pruebas/*; bye"
 
       # Subir el contenido generado (por ejemplo, carpeta 'dist') al FTP
       - name: Subir archivos generados al FTP
