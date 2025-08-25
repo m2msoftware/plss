@@ -32,8 +32,8 @@ jobs:
         run: |
           lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} <<EOF
           set ssl:verify-certificate no
-          mirror -R -e ./dist /pruebas/dist
-          cd /pruebas
+          mirror -R -e ./dist /dist
+          # cd /pruebas
           glob -a mv dist/* .
           rm -r dist
           bye
