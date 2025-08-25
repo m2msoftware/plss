@@ -1,6 +1,3 @@
-# Este flujo de trabajo hará una instalación limpia, build y subirá el contenido de 'dist' al FTP,
-# moviéndolo luego a la carpeta deseada y eliminando la carpeta 'dist' en el servidor.
-
 name: Node.js CI
 
 on:
@@ -31,17 +28,13 @@ jobs:
       - name: Instalar lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # Subir la carpeta dist completa y luego mover el contenido en el servidor
       - name: Subir y reubicar contenido de dist en FTP
         run: |
           lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} <<EOF
           set ssl:verify-certificate no
           mirror -R -e ./dist /pruebas/dist
-          # Mover archivos y carpetas desde /pruebas/dist a /pruebas
-          cls -1 /pruebas/dist | while read item; do
-            mv /pruebas/dist/\$item /pruebas/\$item
-          done
-          # Eliminar la carpeta dist ya vacía
-          rmdir /pruebas/dist
+          cd /pruebas
+          glob -a mv dist/* .
+          rm -r dist
           bye
           EOF
