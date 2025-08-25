@@ -1,4 +1,6 @@
-# Este flujo de trabajo hará una instalación limpia de las dependencias de node, las almacenará/restaurará en caché y construirá el código fuente en diferentes versiones de node
+# Este flujo de trabajo hará una instalación limpia de las dependencias de node, las almacenará/restaurará en caché
+# y construirá el código fuente en diferentes versiones de node.
+# Además, al finalizar el build, subirá el contenido generado al servidor FTP, eliminando previamente lo que exista.
 # Para más información ver: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
@@ -20,11 +22,28 @@ jobs:
         # Ver calendario de versiones soportadas de Node.js en https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm run build --if-present
+
+      # Instalar lftp para la transferencia FTP
+      - name: Instalar lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      # Eliminar el contenido remoto antes de subir lo nuevo
+      - name: Limpiar contenido remoto en FTP
+        run: |
+          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "rm -r /ruta/ftp/remota/*; bye"
+
+      # Subir el contenido generado (por ejemplo, carpeta 'dist') al FTP
+      - name: Subir archivos generados al FTP
+        run: |
+          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "mirror -R -e ./dist /ruta/ftp/remota; bye"
