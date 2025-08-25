@@ -1,7 +1,6 @@
 # Este flujo de trabajo hará una instalación limpia de las dependencias de node, las almacenará/restaurará en caché
 # y construirá el código fuente en diferentes versiones de node.
-# Además, al finalizar el build, subirá el contenido generado al servidor FTP, eliminando previamente lo que exista.
-# Para más información ver: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# Al finalizar el build, subirá SOLO el contenido de la carpeta dist al servidor FTP, sin copiar la carpeta dist como tal.
 
 name: Node.js CI
 
@@ -24,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Usa Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -38,12 +37,19 @@ jobs:
       - name: Instalar lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # Eliminar el contenido remoto antes de subir lo nuevo
-      # - name: Limpiar contenido remoto en FTP
-      #   run: |
-      #     lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; rm -r /pruebas/*; bye"
-
-      # Subir solo el contenido de 'dist' (no la carpeta) al FTP usando mput
+      # Subir solo el contenido de 'dist' (no la carpeta) al FTP
       - name: Subir solo contenido de dist al FTP
         run: |
-          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} -e "set ssl:verify-certificate no; cd /pruebas/; mput -E -r ./dist/*; bye"
+          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} <<EOF
+          set ssl:verify-certificate no
+          cd /pruebas/
+          # Subir archivos sueltos
+          mput ./dist/*
+          # Subir carpetas (si existen)
+          for dir in ./dist/*; do
+            if [ -d "$dir" ]; then
+              mirror -R "$dir" $(basename "$dir")
+            fi
+          done
+          bye
+          EOF
