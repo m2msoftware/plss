@@ -1,6 +1,5 @@
-# Este flujo de trabajo hará una instalación limpia de las dependencias de node, las almacenará/restaurará en caché
-# y construirá el código fuente en diferentes versiones de node.
-# Al finalizar el build, subirá SOLO el contenido de la carpeta dist al servidor FTP, sin copiar la carpeta dist como tal.
+# Este flujo de trabajo hará una instalación limpia, build y subirá el contenido de 'dist' al FTP,
+# moviéndolo luego a la carpeta deseada y eliminando la carpeta 'dist' en el servidor.
 
 name: Node.js CI
 
@@ -12,13 +11,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        # Ver calendario de versiones soportadas de Node.js en https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v4
@@ -30,26 +26,22 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-
       - run: npm run build --if-present
 
-      # Instalar lftp para la transferencia FTP
       - name: Instalar lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # Subir solo el contenido de 'dist' (no la carpeta) al FTP
-      - name: Subir solo contenido de dist al FTP
+      # Subir la carpeta dist completa y luego mover el contenido en el servidor
+      - name: Subir y reubicar contenido de dist en FTP
         run: |
           lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} <<EOF
           set ssl:verify-certificate no
-          cd /pruebas/
-          # Subir archivos sueltos
-          mput ./dist/*
-          # Subir carpetas (si existen)
-          for dir in ./dist/*; do
-            if [ -d "$dir" ]; then
-              mirror -R "$dir" $(basename "$dir")
-            fi
+          mirror -R -e ./dist /pruebas/dist
+          # Mover archivos y carpetas desde /pruebas/dist a /pruebas
+          cls -1 /pruebas/dist | while read item; do
+            mv /pruebas/dist/\$item /pruebas/\$item
           done
+          # Eliminar la carpeta dist ya vacía
+          rmdir /pruebas/dist
           bye
           EOF
