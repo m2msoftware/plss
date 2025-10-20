@@ -542,7 +542,7 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                     <div>
                       <p className="font-medium">Dirección</p>
                       <p className="text-gray-600">
-                        Avda. Alonso de Córdoba N° 5870 oficina 1215, piso 12,
+                        Avda. Alonso de Córdova N° 5870 oficina 1215, piso 12,
                         Las Condes - Santiago
                       </p>
                     </div>
