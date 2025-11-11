@@ -1,5 +1,4 @@
-name: Node.js CI
-
+# Archivo propuesto: CI (matrix) + Deploy único usando artefactos y lftp seguro
 on:
   push:
     branches: [ "main" ]
@@ -8,11 +7,11 @@ on:
 
 jobs:
   build:
+    name: Build (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-
     steps:
       - uses: actions/checkout@v4
 
@@ -25,16 +24,40 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
 
+      - name: Upload build artifact (dist)
+        if: success() && steps['run-build-output'] || true
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  deploy:
+    name: Deploy (solo en push a main)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Descargar artifact dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: ./dist
+
       - name: Instalar lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Subir y reubicar contenido de dist en FTP
+      - name: Subir contenido de dist al FTP de forma segura
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} <<EOF
-          set ssl:verify-certificate no
-          mirror -R -e ./dist /dist
-          # cd /pruebas
-          glob -a mv dist/* .
-          rm -r dist
-          bye
-          EOF
+          lftp -u "$FTP_USER","$FTP_PASSWORD" "$FTP_SERVER" <<'LFTPCMD'
+            set ssl:verify-certificate no
+            lcd dist
+            # sincroniza el contenido de dist con /dist en el servidor
+            mirror -R --delete-first --delete --verbose . /dist
+            bye
+          LFTPCMD
