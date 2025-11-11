@@ -1,4 +1,3 @@
-# Archivo propuesto: CI (matrix) + Deploy único usando artefactos y lftp seguro
 on:
   push:
     branches: [ "main" ]
@@ -25,7 +24,7 @@ jobs:
       - run: npm run build --if-present
 
       - name: Upload build artifact (dist)
-        if: success() && steps['run-build-output'] || true
+        if: matrix.node-version == '22.x'
         uses: actions/upload-artifact@v4
         with:
           name: dist
