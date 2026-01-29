@@ -527,7 +527,7 @@ Mauricio, Ingeniero Comercial, con una trayectoria de 30 años integrando las á
                     <Phone className="w-6 h-6 text-blue-500" />
                     <div>
                       <p className="font-medium">Teléfono</p>
-                      <p className="text-gray-600">229383719</p>
+                      <p className="text-gray-600">233780882</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
