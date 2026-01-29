@@ -57,6 +57,7 @@ jobs:
             set ssl:verify-certificate no
             lcd dist
             # sincroniza el contenido de dist con /dist en el servidor
-            mirror -R --delete-first --delete --verbose . /dist
+            # mirror -R --delete-first --delete --verbose . /dist
+            mirror -R --delete-first --delete --verbose . ./
             bye
           LFTPCMD
