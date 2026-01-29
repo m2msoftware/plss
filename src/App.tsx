@@ -680,7 +680,7 @@ d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
               © {new Date().getFullYear()} Paredes Liquidadores de Seguros.
-              Todos los derechos reservados...
+              Todos los derechos reservados.
             </p>
           </div>
         </div>
