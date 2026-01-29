@@ -672,7 +672,7 @@ d-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               <h3 className="text-lg font-semibold mb-4">
                 Horario de Atención
               </h3>
-              <p className="text-gray-400 mb-2">Teléfono: 229383719</p>
+              <p className="text-gray-400 mb-2">Teléfono: 233780882</p>
               <p className="text-gray-400">Lunes a Viernes</p>
               <p className="text-gray-400">9:00 - 18:00</p>
             </div>
